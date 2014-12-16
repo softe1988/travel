@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Travel</title>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application'%>
+  <%= csrf_meta_tags %>
+  <!-- api key link should be put at the bottom of the head -->
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['API_KEY']%>"></script>
+</head>
+<body>
+
+<%= yield %>
+
+</body>
+</html>

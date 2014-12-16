@@ -1,0 +1,60 @@
+// This is a manifest file that'll be compiled into application.js, which will include all the files
+// listed below.
+//
+// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, vendor/assets/javascripts,
+// or vendor/assets/javascripts of plugins, if any, can be referenced here using a relative path.
+//
+// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
+// compiled file./
+// Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
+// about supported directives.
+//
+//= require jquery
+//= require jquery_ujs
+//= require_tree .
+
+// javascript for google api. setting up attributes for map. similar to ruby class
+
+$(document).ready(function (){
+
+    function initialize() {
+    // defined function that sets selected location
+    var myLatLng = new google.maps.LatLng(35.219563,-80.8330028);
+      var mapOptions = {
+      // calling the variable we defined above
+      center: myLatLng,
+      zoom: 12, 
+      // wont allow us to accidentally zoom in and out
+      scrollwheel:false
+      };
+
+        
+      var map = new google.maps.Map(document.getElementById('map-canvas'),
+                mapOptions);    
+      // added marker to var my latlng
+      
+      // using picture saved in images file as marker image
+      var image = "<%= asset_path 'crown.jpg' %>"
+
+      var marker = new google.maps.Marker({
+      	position: myLatLng,
+      	map: map,
+      	title: 'The Queen City',
+      	icon: image,
+      	animation: google.maps.Animation.DROP
+
+      });
+
+       var contentString = '<h2>The Queen City</h2>' + '<p>This is the coolest place on earth!</p>';
+
+      var infowindow = new google.maps.InfoWindow({
+          content: contentString
+      });
+
+      google.maps.event.addListener(marker, 'click', function() {
+          infowindow.open(map,marker);
+      });    
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
+});
+
